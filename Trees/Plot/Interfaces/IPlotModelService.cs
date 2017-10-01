@@ -14,6 +14,7 @@ namespace Plot.Interfaces
         void AddTitle(string title);
         void AddLine(LineSeries lineSeries);
         void AddDots(List<DataPoint> dots, OxyColor color);
+        void AddHorizontalDivider(double x, OxyColor color);
         PlotModel GetPlotModel();
     }
 }

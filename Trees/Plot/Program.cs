@@ -1,10 +1,10 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
 using Plot.Interfaces;
+using Plot.MockData;
 using Plot.Services;
 using SimpleInjector;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Core.Plotter
@@ -22,17 +22,14 @@ namespace Core.Plotter
 
             var plotViewService = container.GetInstance<IPlotViewService>();
             var plotModelService = container.GetInstance<IPlotModelService>();
+            var mockData = container.GetInstance<IMockData>();
+                      
+            var dots1 = mockData.GetDataPoints();
+            plotModelService.AddDots(dots1, OxyColors.Red);
 
-            var dots = new List<DataPoint>();
-            Random rnd = new Random();
-            for (double i = 0; i < 10; i += 0.05)
-            {
-                // if(rnd.Next(1,3) % 2 == 0)
-                    dots.Add(new DataPoint( i + (rnd.Next(-15, 15) / 100.0), Math.Sin(i) + (rnd.Next(-15, 15)/100.0) ));
-            }
+            var dots2 = mockData.GetDataPoints();
+            plotModelService.AddDots(dots2, OxyColors.Blue);
 
-            plotModelService.AddFunction(new FunctionSeries(Math.Sin, 0, 10, 0.1, "sin(x)"));
-            plotModelService.AddDots(dots, OxyColors.Red);
             plotModelService.AddTitle("Teste");
 
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());
@@ -46,6 +43,8 @@ namespace Core.Plotter
 
             container.Register<IPlotViewService, PlotViewService>();
             container.Register<IPlotModelService, PlotModelService>();
+            container.Register<IMockData, RandomCluster>();
+
             container.Register<Plotter>();
         }
     }

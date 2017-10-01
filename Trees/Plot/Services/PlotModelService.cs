@@ -3,6 +3,7 @@ using OxyPlot;
 using OxyPlot.Series;
 using Plot.Interfaces;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Plot.Services
 {
@@ -32,6 +33,7 @@ namespace Plot.Services
 
         public void AddDots(List<DataPoint> dots, OxyColor color)
         {
+            Thread.Sleep(100);
             foreach (var dot in dots)
             {
                 var lineSeries = new LineSeries();
@@ -42,6 +44,15 @@ namespace Plot.Services
                 lineSeries.Color = color;
                 plotModel.Series.Add(lineSeries);
             }
+        }
+
+        public void AddHorizontalDivider(double x, OxyColor color)
+        {
+            var lineSeries = new LineSeries();
+            lineSeries.Color = color;
+            lineSeries.Points.Add(new DataPoint(x, -2.0));
+            lineSeries.Points.Add(new DataPoint(x, 2.0));
+            plotModel.Series.Add(lineSeries);
         }
 
         public PlotModel GetPlotModel()
