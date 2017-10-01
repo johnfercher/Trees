@@ -39,7 +39,7 @@ namespace Plot.Services
                 var lineSeries = new LineSeries();
                 for (double i = 0.0; i < Math.PI * 3.0; i += 0.2)
                 {
-                    lineSeries.Points.Add(new DataPoint((Math.Cos(i)* 0.01) + dot.X, (Math.Sin(i)*0.01) + dot.Y));
+                    lineSeries.Points.Add(new DataPoint((Math.Cos(i) * 0.01) + dot.X, (Math.Sin(i) * 0.01) + dot.Y));
                 }
                 lineSeries.Color = color;
                 plotModel.Series.Add(lineSeries);
@@ -58,6 +58,23 @@ namespace Plot.Services
         public PlotModel GetPlotModel()
         {
             return plotModel;
+        }
+
+        public void AddBinaryLine(List<DataPoint> dots, OxyColor color)
+        {
+            Thread.Sleep(100);
+            var lineSeries = new LineSeries();
+
+            lineSeries.Points.Add(dots[0]);
+            for (int i = 0; i < dots.Count - 1; i++)
+            {
+                lineSeries.Points.Add(new DataPoint((dots[i].X + dots[i + 1].X) / 2.0, dots[i].Y));
+                lineSeries.Points.Add(new DataPoint((dots[i].X + dots[i + 1].X) / 2.0, dots[i + 1].Y));
+            }
+            lineSeries.Points.Add(dots[dots.Count - 1]);
+
+            lineSeries.Color = color;
+            plotModel.Series.Add(lineSeries);
         }
     }
 }

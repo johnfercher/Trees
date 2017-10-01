@@ -28,10 +28,11 @@ namespace Core.Plotter
             plotModelService.AddFunction(new FunctionSeries(Math.Sin, 0, 10, 0.1, "sin(x)"));
 
             var dots = mockData.GetDataPoints();
-            plotModelService.AddDots(dots, OxyColors.Red);
+            // plotModelService.AddDots(dots, OxyColors.Red);
 
             var regressionDots = regressionTree.DoRegression(dots);
             plotModelService.AddDots(regressionDots, OxyColors.Blue);
+            plotModelService.AddBinaryLine(regressionDots, OxyColors.Black);
 
             plotModelService.AddTitle("Teste");
 

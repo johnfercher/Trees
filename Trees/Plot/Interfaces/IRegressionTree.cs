@@ -10,5 +10,6 @@ namespace Plot.Interfaces
     interface IRegressionTree
     {
         List<DataPoint> DoRegression(List<DataPoint> data);
+        void SetMinNumberToSplit(int minNumber);
     }
 }

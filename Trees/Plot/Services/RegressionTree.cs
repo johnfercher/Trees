@@ -5,26 +5,56 @@ using System.Windows.Forms;
 using OxyPlot.WindowsForms;
 using System;
 using System.Collections.Generic;
+using Plot.Commons;
 
 namespace Plot.Services
 {
     class RegressionTree : IRegressionTree
     {
-        public RegressionTree()
-        {
+        public List<DataPoint> splits { get; set; }
+        public int minNumber { get; set; }
 
+        public void SetMinNumberToSplit(int _minNumber)
+        {
+            minNumber = _minNumber;
         }
 
         List<DataPoint> IRegressionTree.DoRegression(List<DataPoint> data)
         {
+            minNumber = 5;
             List<DataPoint> regression = new List<DataPoint>();
+            double xInit = 0.0;
 
-            for (double i = 0.0; i < 10.0; i += 0.5)
+            for (double i = 0.05; i < 10.0; i += 0.05)
             {
-                regression.Add(GetMinErrorFromZByPoint(data, i, i+0.5));
-            }
+                if(HasMinOfNumberOfPointToSplit(data, xInit, i))
+                {
+                    regression.Add(GetMinErrorFromZByPoint(data, xInit, i));
+                    xInit = i;
+                    i += 0.05;
+                }
+            }            
            
             return regression;
+        }
+
+        bool HasMinOfNumberOfPointToSplit(List<DataPoint> points, double xInitial, double xFinal)
+        {
+            bool hasMin = false;
+            int number = 0;
+
+            foreach (var point in points)
+            {
+                if (point.X >= xInitial && point.X <= xFinal)
+                {
+                    number++;
+                }
+            }
+
+            if (number >= minNumber)
+                hasMin = true;
+
+            return hasMin;
         }
 
         DataPoint GetMinErrorFromZByPoint(List<DataPoint> points, double xInitial, double xFinal)
@@ -64,5 +94,7 @@ namespace Plot.Services
 
             return rangePoints[indexMin];
         }
+
+        
     }
 }

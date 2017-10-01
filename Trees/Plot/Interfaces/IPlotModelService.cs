@@ -13,6 +13,7 @@ namespace Plot.Interfaces
         void AddFunction(FunctionSeries functionSeries);
         void AddTitle(string title);
         void AddLine(LineSeries lineSeries);
+        void AddBinaryLine(List<DataPoint> dots, OxyColor color);
         void AddDots(List<DataPoint> dots, OxyColor color);
         void AddHorizontalDivider(double x, OxyColor color);
         PlotModel GetPlotModel();
