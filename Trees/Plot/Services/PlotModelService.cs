@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using Plot.Interfaces;
 using System.Collections.Generic;
 using System.Threading;
+using Plot.Commons;
 
 namespace Plot.Services
 {
@@ -66,6 +67,14 @@ namespace Plot.Services
             lineSeries.Points.Add(new DataPoint(top.X, y));
             lineSeries.Points.Add(new DataPoint(bottom.X, y));
             plotModel.Series.Add(lineSeries);
+        }
+
+        void IPlotModelService.AddUtilityValues(List<UtilityValue> utilitys, OxyColor color)
+        {
+            if (utilitys[0].type == DivisionType.Horizontal)
+                AddHorizontalDivider(utilitys[0].X, color);     
+            else
+                AddVerticalDivider(utilitys[0].Y, color);      
         }
 
         public PlotModel GetPlotModel()

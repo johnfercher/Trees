@@ -1,5 +1,6 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
+using Plot.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Plot.Interfaces
         void AddHorizontalDivider(double x, OxyColor color);
         void AddVerticalDivider(double y, OxyColor color);
         void AddSquare(DataPoint initial, DataPoint final, OxyColor color);
+        void AddUtilityValues(List<UtilityValue> utilitys, OxyColor color);
 
         PlotModel GetPlotModel();
     }

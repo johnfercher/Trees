@@ -1,4 +1,5 @@
 ﻿using OxyPlot;
+using Plot.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Plot.Interfaces
 {
     interface IClassificationTree
     {
-        List<DataPoint> DoClassification(List<DataPoint> classOne, List<DataPoint> classTwo);
+        List<UtilityValue> DoClassification(List<DataPoint> classOne, List<DataPoint> classTwo);
     }
 }

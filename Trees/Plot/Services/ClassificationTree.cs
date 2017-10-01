@@ -1,6 +1,7 @@
 ﻿using Plot.Interfaces;
 using System.Collections.Generic;
 using OxyPlot;
+using Plot.Commons;
 
 namespace Plot.Services
 {
@@ -15,38 +16,39 @@ namespace Plot.Services
             final = new DataPoint();
         }
 
-        public List<DataPoint> DoClassification(List<DataPoint> classOne, List<DataPoint> classTwo)
+        public List<UtilityValue> DoClassification(List<DataPoint> classOne, List<DataPoint> classTwo)
         {
-            List<DataPoint> classification = new List<DataPoint>();
-            DataPoint betterHorizontalDivison = new DataPoint();
-            DataPoint betterVerticalDivison = new DataPoint();
+            List<UtilityValue> classification = new List<UtilityValue>();
+            var horizontalUtility = new UtilityValue();
+            var verticalUtility = new UtilityValue();
 
+            // Define o quadro de busca
             initial = findInitial(classOne, classTwo);
             final = findFinal(classOne, classTwo);
 
-            betterHorizontalDivison = findBetterHorizontalDivision(classOne, classTwo);
-            // betterVerticalDivison; = findBetterHorizontalDivision(classOne, classTwo
+            horizontalUtility = findBetterHorizontalDivision(classOne, classTwo);
+            verticalUtility = findBetterVerticalDivision(classOne, classTwo);
 
             //  enquanto (pontos restantes em relação aos já removidos forem significativos) {
-            //      if (vertical é melhor que horizontal)
-            //          adiciona vertical ();
-            //      se não
-            //          adiciona horizontal();
+                    if (horizontalUtility.BetterValue > verticalUtility.BetterValue)
+                        classification.Add(horizontalUtility);
+                    else
+                        classification.Add(verticalUtility);
             //
             //      limpa pontos já processados () "definir se deve limpar os bottom ou top"
             //  }
 
-            classification.Add(betterHorizontalDivison);
+
 
             return classification;
         }
 
         // Obtém a melhor divisão na horizontal considerando os elementos a direita e esquerda
-        private DataPoint findBetterHorizontalDivision(List<DataPoint> classOne, List<DataPoint> classTwo)
+        private UtilityValue findBetterHorizontalDivision(List<DataPoint> classOne, List<DataPoint> classTwo)
         {
-            double betterUtility = 0.0;
-            double betterX = 0.0;
-
+            UtilityValue horizontalUtility = new UtilityValue();
+            horizontalUtility.type = DivisionType.Horizontal;
+            
             for (double positionX = initial.X; positionX < final.X; positionX += 0.05)
             {
                 int amountOfClassOneBottom = 0;
@@ -73,10 +75,11 @@ namespace Plot.Services
                 }
 
                 actualUtilityBottom = utilityFunction(amountOfClassOneBottom, amountOfClassTwoBottom);
-                if (actualUtilityBottom >= betterUtility)
+                if (actualUtilityBottom >= horizontalUtility.BetterValue)
                 {
-                    betterUtility = actualUtilityBottom;
-                    betterX = positionX;
+                    horizontalUtility.BetterValue = actualUtilityBottom;
+                    horizontalUtility.X = positionX;
+                    horizontalUtility.region = DivisionRegion.InitialFromOrigin;
                 }
 
 
@@ -97,14 +100,83 @@ namespace Plot.Services
                 }
 
                 actualUtilityTop = utilityFunction(amountOfClassOneTop, amountOfClassTwoTop);
-                if (actualUtilityTop >= betterUtility)
+                if (actualUtilityTop >= horizontalUtility.BetterValue)
                 {
-                    betterUtility = actualUtilityTop;
-                    betterX = positionX;
+                    horizontalUtility.BetterValue = actualUtilityTop;
+                    horizontalUtility.X = positionX;
+                    horizontalUtility.region = DivisionRegion.FinalFromOrigin;
                 }
             }
 
-            return new DataPoint(betterX, 0);
+            return horizontalUtility;
+        }
+
+        // Obtém a melhor divisão na vertical considerando os elementos de cima e baixo
+        private UtilityValue findBetterVerticalDivision(List<DataPoint> classOne, List<DataPoint> classTwo)
+        {
+            UtilityValue horizontalUtility = new UtilityValue();
+            horizontalUtility.type = DivisionType.Vertical;
+
+            for (double positionY = initial.Y; positionY < final.X; positionY += 0.05)
+            {
+                int amountOfClassOneBottom = 0;
+                int amountOfClassTwoBottom = 0;
+                double actualUtilityBottom = 1.0;
+                int amountOfClassOneTop = 0;
+                int amountOfClassTwoTop = 0;
+                double actualUtilityTop = 1.0;
+
+                for (int j = 0; j < classOne.Count; j++)
+                {
+                    if (classOne[j].Y <= positionY)
+                    {
+                        amountOfClassOneBottom++;
+                    }
+                }
+
+                for (int j = 0; j < classTwo.Count; j++)
+                {
+                    if (classTwo[j].Y <= positionY)
+                    {
+                        amountOfClassTwoBottom++;
+                    }
+                }
+
+                actualUtilityBottom = utilityFunction(amountOfClassOneBottom, amountOfClassTwoBottom);
+                if (actualUtilityBottom >= horizontalUtility.BetterValue)
+                {
+                    horizontalUtility.BetterValue = actualUtilityBottom;
+                    horizontalUtility.Y = positionY;
+                    horizontalUtility.region = DivisionRegion.InitialFromOrigin;
+                }
+
+
+                for (int j = 0; j < classOne.Count; j++)
+                {
+                    if (classOne[j].X > positionY)
+                    {
+                        amountOfClassOneTop++;
+                    }
+                }
+
+                for (int j = 0; j < classTwo.Count; j++)
+                {
+                    if (classTwo[j].X > positionY)
+                    {
+                        amountOfClassTwoTop++;
+                    }
+                }
+
+                actualUtilityTop = utilityFunction(amountOfClassOneTop, amountOfClassTwoTop);
+                if (actualUtilityTop >= horizontalUtility.BetterValue)
+                {
+                    horizontalUtility.BetterValue = actualUtilityTop;
+                    horizontalUtility.Y = positionY;
+                    horizontalUtility.region = DivisionRegion.FinalFromOrigin;
+                }
+            }
+
+            return horizontalUtility;
         }
 
         // Computação Evolutiva pode ser útil nessa parte

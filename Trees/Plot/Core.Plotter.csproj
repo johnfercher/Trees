@@ -75,7 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commons\NodeRegression.cs" />
+    <Compile Include="Commons\Enums.cs" />
+    <Compile Include="Commons\UtilityValue.cs" />
     <Compile Include="Interfaces\IClassificationTree.cs" />
     <Compile Include="Interfaces\IPlotModelService.cs" />
     <Compile Include="Interfaces\IPlotViewService.cs" />

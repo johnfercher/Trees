@@ -35,8 +35,10 @@ namespace Core.Plotter
             plotModelService.AddDots(dots2, OxyColors.Blue);
 
             var divisions = classificationTree.DoClassification(dots1, dots2);
+
             plotModelService.AddSquare(classificationTree.initial, classificationTree.final, OxyColors.Black);
-            plotModelService.AddHorizontalDivider(divisions[0].X, OxyColors.Purple);
+            plotModelService.AddUtilityValues(divisions, OxyColors.Purple);
+
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());
 
             Application.Run(new Plotter(plotViewService.GetPlotView()));
