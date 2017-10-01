@@ -10,10 +10,14 @@ namespace Plot.Services
     class PlotModelService : IPlotModelService
     {
         private PlotModel plotModel;
+        private DataPoint top;
+        private DataPoint bottom;
 
         public PlotModelService()
         {
             plotModel = new PlotModel();
+            top = new DataPoint();
+            bottom = new DataPoint();
         }
 
         public void AddFunction(FunctionSeries functionSeries)
@@ -50,8 +54,8 @@ namespace Plot.Services
         {
             var lineSeries = new LineSeries();
             lineSeries.Color = color;
-            lineSeries.Points.Add(new DataPoint(x, -2.0));
-            lineSeries.Points.Add(new DataPoint(x, 2.0));
+            lineSeries.Points.Add(new DataPoint(x, top.Y));
+            lineSeries.Points.Add(new DataPoint(x, bottom.Y));
             plotModel.Series.Add(lineSeries);
         }
 
@@ -59,8 +63,8 @@ namespace Plot.Services
         {
             var lineSeries = new LineSeries();
             lineSeries.Color = color;
-            lineSeries.Points.Add(new DataPoint(-2.0, y));
-            lineSeries.Points.Add(new DataPoint(2.0, y));
+            lineSeries.Points.Add(new DataPoint(top.X, y));
+            lineSeries.Points.Add(new DataPoint(bottom.X, y));
             plotModel.Series.Add(lineSeries);
         }
 
@@ -89,6 +93,9 @@ namespace Plot.Services
         public void AddSquare(DataPoint initial, DataPoint final, OxyColor color)
         {
             Thread.Sleep(100);
+            top = initial;
+            bottom = final;
+
             var lineSeries = new LineSeries();
 
             lineSeries.Points.Add(initial);

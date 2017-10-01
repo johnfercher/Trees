@@ -12,9 +12,9 @@ namespace Plot.MockData
             var dots = new List<DataPoint>();
             Random rnd = new Random();
 
-            var amountOfDots = rnd.Next(10, 20);
-            var xAdd = rnd.Next(1, 3);
-            var yAdd = rnd.Next(1, 3);
+            var amountOfDots = rnd.Next(100, 200);
+            var xAdd = rnd.Next(2, 4);
+            var yAdd = rnd.Next(2, 4);
 
             for (int i = 0; i < amountOfDots; i++)
             {

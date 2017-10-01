@@ -1,9 +1,5 @@
 ﻿using Plot.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OxyPlot;
 
 namespace Plot.Services
@@ -25,14 +21,111 @@ namespace Plot.Services
             initial = findInitial(classOne, classTwo);
             final = findFinal(classOne, classTwo);
 
+            classification.Add(findBetterHorizontalDivision(classOne, classTwo));
+
             return classification;
         }
 
+        // Obtém a melhor divisão na horizontal considerando os elementos a direita e esquerda
         private DataPoint findBetterHorizontalDivision(List<DataPoint> classOne, List<DataPoint> classTwo)
         {
-            DataPoint betterDivision = new DataPoint();
+            double betterUtility = 0.0;
+            double betterX = 0.0;
 
-            return betterDivision;
+            for (double positionX = initial.X; positionX < final.X; positionX += 0.05)
+            {
+                int amountOfClassOneBottom = 0;
+                int amountOfClassTwoBottom = 0;
+                double actualUtilityBottom = 1.0;
+                int amountOfClassOneTop = 0;
+                int amountOfClassTwoTop = 0;
+                double actualUtilityTop = 1.0;
+
+                for (int j = 0; j < classOne.Count; j++)
+                {
+                    if (classOne[j].X <= positionX)
+                    {
+                        amountOfClassOneBottom++;
+                    }
+                }
+
+                for (int j = 0; j < classTwo.Count; j++)
+                {
+                    if (classTwo[j].X <= positionX)
+                    {
+                        amountOfClassTwoBottom++;
+                    }
+                }
+
+                actualUtilityBottom = utilityFunction(amountOfClassOneBottom, amountOfClassTwoBottom);
+                if (actualUtilityBottom >= betterUtility)
+                {
+                    betterUtility = actualUtilityBottom;
+                    betterX = positionX;
+                }
+
+
+                for (int j = 0; j < classOne.Count; j++)
+                {
+                    if (classOne[j].X > positionX)
+                    {
+                        amountOfClassOneTop++;
+                    }
+                }
+
+                for (int j = 0; j < classTwo.Count; j++)
+                {
+                    if (classTwo[j].X > positionX)
+                    {
+                        amountOfClassTwoTop++;
+                    }
+                }
+
+                actualUtilityTop = utilityFunction(amountOfClassOneTop, amountOfClassTwoTop);
+                if (actualUtilityTop >= betterUtility)
+                {
+                    betterUtility = actualUtilityTop;
+                    betterX = positionX;
+                }
+            }
+
+            return new DataPoint(betterX, 0);
+        }
+
+        // Computação Evolutiva pode ser útil nessa parte
+        private double utilityFunction(int amountOfClassOne, int amountOfClassTwo)
+        {
+            double utility = 1.0;
+            double purityOfSplit = 1.0;
+            double perfectSplitGain = 1.0;
+            double miscGain = 1.0;
+            double greaterAmount = 0;
+
+            // Da preferêcia por divisões perfeitas
+            if ( (amountOfClassOne == 0 && amountOfClassTwo > 0) || (amountOfClassOne > 0 && amountOfClassTwo == 0))
+            {
+                perfectSplitGain = 5.0;
+            }
+
+            // Da preferência por divisões com mais elementos
+            if (amountOfClassOne > amountOfClassTwo)
+            {
+                greaterAmount = amountOfClassOne;
+                purityOfSplit = amountOfClassOne / (amountOfClassTwo == 0 ? 1 : amountOfClassTwo);
+            }
+            else
+            {
+                greaterAmount = amountOfClassTwo;
+                purityOfSplit = amountOfClassTwo / (amountOfClassOne == 0 ? 1 : amountOfClassOne);
+            }
+
+            // Da preferência por mistura com poutos elementos
+            if (amountOfClassOne > 0 && amountOfClassTwo > 0 && amountOfClassOne + amountOfClassTwo > 10)
+                miscGain = greaterAmount / (amountOfClassOne + amountOfClassTwo + 1.0) * 0.1;
+
+            utility = greaterAmount * purityOfSplit * perfectSplitGain * miscGain;
+
+            return utility;
         }
 
         private DataPoint findFinal(List<DataPoint> classOne, List<DataPoint> classTwo)
