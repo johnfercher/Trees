@@ -4,6 +4,7 @@ using Plot.Interfaces;
 using Plot.Services;
 using SimpleInjector;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Core.Plotter
@@ -31,8 +32,14 @@ namespace Core.Plotter
                 lineSeries.Points.Add(new DataPoint(i, Math.Sin(i)+(rnd.Next(1, 13)/100.0)));
             }
 
+            var dots = new List<DataPoint>();
+            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
+            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
+            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
+
             plotModelService.AddLine(lineSeries);
             plotModelService.AddFunction(new FunctionSeries(Math.Sin, 0, 10, 0.1, "sin(x)"));
+            plotModelService.AddDots(dots, OxyColors.Red);
             plotModelService.AddTitle("Teste");
 
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());

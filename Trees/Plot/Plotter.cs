@@ -14,7 +14,7 @@ namespace Core.Plotter
         {
             plotView = _plotView;
             Controls.Add(plotView);
-            this.Size = new Size(800, 550);
+            this.Size = new Size(800, 800);
         }
 
         private void Form1_Load(object sender, EventArgs e)

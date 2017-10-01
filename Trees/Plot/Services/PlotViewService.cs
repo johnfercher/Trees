@@ -16,9 +16,9 @@ namespace Plot.Services
             plotView = new PlotView();
             plotModel = new PlotModel();
 
-            plotView.Dock = DockStyle.Bottom;
+            plotView.Dock = DockStyle.Fill;
             plotView.Location = new Point(0, 0);
-            plotView.Size = new Size(700, 500);
+            plotView.Size = new Size(800, 800);
             plotView.TabIndex = 0;
             plotView.Model = plotModel;
         }
