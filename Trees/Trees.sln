@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees", "Trees\Trees.csproj", "{45CF79FD-93BE-45AA-9F15-68544D36725E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plotter", "Plot\Core.Plotter.csproj", "{025E4E1D-EC21-4F40-AFE6-C4EB880A9C14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{45CF79FD-93BE-45AA-9F15-68544D36725E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45CF79FD-93BE-45AA-9F15-68544D36725E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45CF79FD-93BE-45AA-9F15-68544D36725E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45CF79FD-93BE-45AA-9F15-68544D36725E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{025E4E1D-EC21-4F40-AFE6-C4EB880A9C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025E4E1D-EC21-4F40-AFE6-C4EB880A9C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025E4E1D-EC21-4F40-AFE6-C4EB880A9C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025E4E1D-EC21-4F40-AFE6-C4EB880A9C14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
