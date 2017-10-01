@@ -23,21 +23,14 @@ namespace Core.Plotter
             var plotViewService = container.GetInstance<IPlotViewService>();
             var plotModelService = container.GetInstance<IPlotModelService>();
 
-            
-
-            var lineSeries = new LineSeries();
+            var dots = new List<DataPoint>();
             Random rnd = new Random();
-            for (double i = 0; i < 10; i += 0.1)
+            for (double i = 0; i < 10; i += 0.05)
             {
-                lineSeries.Points.Add(new DataPoint(i, Math.Sin(i)+(rnd.Next(1, 13)/100.0)));
+                // if(rnd.Next(1,3) % 2 == 0)
+                    dots.Add(new DataPoint( i + (rnd.Next(-15, 15) / 100.0), Math.Sin(i) + (rnd.Next(-15, 15)/100.0) ));
             }
 
-            var dots = new List<DataPoint>();
-            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
-            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
-            dots.Add(new DataPoint(rnd.Next(1, 13), rnd.Next(1, 13)));
-
-            plotModelService.AddLine(lineSeries);
             plotModelService.AddFunction(new FunctionSeries(Math.Sin, 0, 10, 0.1, "sin(x)"));
             plotModelService.AddDots(dots, OxyColors.Red);
             plotModelService.AddTitle("Teste");

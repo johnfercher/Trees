@@ -37,7 +37,7 @@ namespace Plot.Services
                 var lineSeries = new LineSeries();
                 for (double i = 0.0; i < Math.PI * 3.0; i += 0.2)
                 {
-                    lineSeries.Points.Add(new DataPoint((Math.Cos(i) + dot.X) * 0.01, (Math.Sin(i) + dot.Y) * 0.01));
+                    lineSeries.Points.Add(new DataPoint((Math.Cos(i)* 0.01) + dot.X, (Math.Sin(i)*0.01) + dot.Y));
                 }
                 lineSeries.Color = color;
                 plotModel.Series.Add(lineSeries);
