@@ -77,6 +77,7 @@
     <Compile Include="Interfaces\IPlotModelService.cs" />
     <Compile Include="Interfaces\IPlotViewService.cs" />
     <Compile Include="Interfaces\IMockData.cs" />
+    <Compile Include="Interfaces\IRegressionTree.cs" />
     <Compile Include="MockData\RandomCluster.cs" />
     <Compile Include="Plotter.cs">
       <SubType>Form</SubType>
@@ -89,6 +90,7 @@
     <Compile Include="MockData\SinWithNoise.cs" />
     <Compile Include="Services\PlotModelService.cs" />
     <Compile Include="Services\PlotViewService.cs" />
+    <Compile Include="Services\RegressionTree.cs" />
     <EmbeddedResource Include="Plotter.resx">
       <DependentUpon>Plotter.cs</DependentUpon>
     </EmbeddedResource>

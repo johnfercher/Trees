@@ -27,9 +27,6 @@ namespace Core.Plotter
             var dots1 = mockData.GetDataPoints();
             plotModelService.AddDots(dots1, OxyColors.Red);
 
-            var dots2 = mockData.GetDataPoints();
-            plotModelService.AddDots(dots2, OxyColors.Blue);
-
             plotModelService.AddTitle("Teste");
 
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());
@@ -43,7 +40,7 @@ namespace Core.Plotter
 
             container.Register<IPlotViewService, PlotViewService>();
             container.Register<IPlotModelService, PlotModelService>();
-            container.Register<IMockData, RandomCluster>();
+            container.Register<IMockData, SinWithNoise>();
 
             container.Register<Plotter>();
         }
