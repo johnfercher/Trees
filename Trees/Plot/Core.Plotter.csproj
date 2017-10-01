@@ -80,6 +80,7 @@
     <Compile Include="Interfaces\IPlotViewService.cs" />
     <Compile Include="Interfaces\IMockData.cs" />
     <Compile Include="Interfaces\IRegressionTree.cs" />
+    <Compile Include="MockData\ExponentialWithNoise.cs" />
     <Compile Include="MockData\RandomCluster.cs" />
     <Compile Include="Plotter.cs">
       <SubType>Form</SubType>
