@@ -55,6 +55,15 @@ namespace Plot.Services
             plotModel.Series.Add(lineSeries);
         }
 
+        public void AddVerticalDivider(double y, OxyColor color)
+        {
+            var lineSeries = new LineSeries();
+            lineSeries.Color = color;
+            lineSeries.Points.Add(new DataPoint(-2.0, y));
+            lineSeries.Points.Add(new DataPoint(2.0, y));
+            plotModel.Series.Add(lineSeries);
+        }
+
         public PlotModel GetPlotModel()
         {
             return plotModel;
@@ -72,6 +81,21 @@ namespace Plot.Services
                 lineSeries.Points.Add(new DataPoint((dots[i].X + dots[i + 1].X) / 2.0, dots[i + 1].Y));
             }
             lineSeries.Points.Add(dots[dots.Count - 1]);
+
+            lineSeries.Color = color;
+            plotModel.Series.Add(lineSeries);
+        }
+
+        public void AddSquare(DataPoint initial, DataPoint final, OxyColor color)
+        {
+            Thread.Sleep(100);
+            var lineSeries = new LineSeries();
+
+            lineSeries.Points.Add(initial);
+            lineSeries.Points.Add(new DataPoint(final.X, initial.Y));
+            lineSeries.Points.Add(final);
+            lineSeries.Points.Add(new DataPoint(initial.X, final.Y));
+            lineSeries.Points.Add(initial);
 
             lineSeries.Color = color;
             plotModel.Series.Add(lineSeries);

@@ -13,8 +13,8 @@ namespace Plot.MockData
             Random rnd = new Random();
 
             var amountOfDots = rnd.Next(10, 20);
-            var xAdd = rnd.Next(1, 5);
-            var yAdd = rnd.Next(1, 5);
+            var xAdd = rnd.Next(1, 3);
+            var yAdd = rnd.Next(1, 3);
 
             for (int i = 0; i < amountOfDots; i++)
             {

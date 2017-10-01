@@ -24,15 +24,18 @@ namespace Core.Plotter
             var plotModelService = container.GetInstance<IPlotModelService>();
             var mockData = container.GetInstance<IMockData>();
             var regressionTree = container.GetInstance<IRegressionTree>();
-
-            var dots = mockData.GetDataPoints();
-            plotModelService.AddDots(dots, OxyColors.Red);
-
-            var regressionDots = regressionTree.DoRegression(dots);
-            plotModelService.AddDots(regressionDots, OxyColors.Blue);
-            plotModelService.AddBinaryLine(regressionDots, OxyColors.Black);
+            var classificationTree = container.GetInstance<ClassificationTree>();
 
             plotModelService.AddTitle("Teste");
+
+            var dots1 = mockData.GetDataPoints();
+            plotModelService.AddDots(dots1, OxyColors.Red);
+
+            var dots2 = mockData.GetDataPoints();
+            plotModelService.AddDots(dots2, OxyColors.Blue);
+
+            var divisions = classificationTree.DoClassification(dots1, dots2);
+            plotModelService.AddSquare(classificationTree.initial, classificationTree.final, OxyColors.Black);
 
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());
 
@@ -45,8 +48,9 @@ namespace Core.Plotter
 
             container.Register<IPlotViewService, PlotViewService>();
             container.Register<IPlotModelService, PlotModelService>();
-            container.Register<IMockData, ExponentialWithNoise>();
+            container.Register<IMockData, RandomCluster>();
             container.Register<IRegressionTree, RegressionTree>();
+            container.Register<IClassificationTree, ClassificationTree>();
 
             container.Register<Plotter>();
         }

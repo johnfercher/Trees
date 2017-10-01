@@ -16,6 +16,9 @@ namespace Plot.Interfaces
         void AddBinaryLine(List<DataPoint> dots, OxyColor color);
         void AddDots(List<DataPoint> dots, OxyColor color);
         void AddHorizontalDivider(double x, OxyColor color);
+        void AddVerticalDivider(double y, OxyColor color);
+        void AddSquare(DataPoint initial, DataPoint final, OxyColor color);
+
         PlotModel GetPlotModel();
     }
 }
