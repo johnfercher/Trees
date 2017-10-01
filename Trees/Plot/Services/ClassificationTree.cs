@@ -18,10 +18,25 @@ namespace Plot.Services
         public List<DataPoint> DoClassification(List<DataPoint> classOne, List<DataPoint> classTwo)
         {
             List<DataPoint> classification = new List<DataPoint>();
+            DataPoint betterHorizontalDivison = new DataPoint();
+            DataPoint betterVerticalDivison = new DataPoint();
+
             initial = findInitial(classOne, classTwo);
             final = findFinal(classOne, classTwo);
 
-            classification.Add(findBetterHorizontalDivision(classOne, classTwo));
+            betterHorizontalDivison = findBetterHorizontalDivision(classOne, classTwo);
+            // betterVerticalDivison; = findBetterHorizontalDivision(classOne, classTwo
+
+            //  enquanto (pontos restantes em relação aos já removidos forem significativos) {
+            //      if (vertical é melhor que horizontal)
+            //          adiciona vertical ();
+            //      se não
+            //          adiciona horizontal();
+            //
+            //      limpa pontos já processados () "definir se deve limpar os bottom ou top"
+            //  }
+
+            classification.Add(betterHorizontalDivison);
 
             return classification;
         }
