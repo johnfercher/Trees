@@ -23,9 +23,15 @@ namespace Core.Plotter
             var plotViewService = container.GetInstance<IPlotViewService>();
             var plotModelService = container.GetInstance<IPlotModelService>();
             var mockData = container.GetInstance<IMockData>();
-                      
-            var dots1 = mockData.GetDataPoints();
-            plotModelService.AddDots(dots1, OxyColors.Red);
+            var regressionTree = container.GetInstance<IRegressionTree>();
+
+            plotModelService.AddFunction(new FunctionSeries(Math.Sin, 0, 10, 0.1, "sin(x)"));
+
+            var dots = mockData.GetDataPoints();
+            plotModelService.AddDots(dots, OxyColors.Red);
+
+            var regressionDots = regressionTree.DoRegression(dots);
+            plotModelService.AddDots(regressionDots, OxyColors.Blue);
 
             plotModelService.AddTitle("Teste");
 
@@ -41,6 +47,7 @@ namespace Core.Plotter
             container.Register<IPlotViewService, PlotViewService>();
             container.Register<IPlotModelService, PlotModelService>();
             container.Register<IMockData, SinWithNoise>();
+            container.Register<IRegressionTree, RegressionTree>();
 
             container.Register<Plotter>();
         }
