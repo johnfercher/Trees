@@ -38,7 +38,7 @@ namespace Plot.Services
 
         public void AddDots(List<DataPoint> dots, OxyColor color)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             foreach (var dot in dots)
             {
                 var lineSeries = new LineSeries();
@@ -71,10 +71,14 @@ namespace Plot.Services
 
         void IPlotModelService.AddUtilityValues(List<UtilityValue> utilitys, OxyColor color)
         {
-            if (utilitys[0].type == DivisionType.Horizontal)
-                AddHorizontalDivider(utilitys[0].X, color);     
-            else
-                AddVerticalDivider(utilitys[0].Y, color);      
+            foreach (var utility in utilitys)
+            {
+                if (utility.type == DivisionType.Horizontal)
+                    AddHorizontalDivider(utility.X, color);
+                else
+                    AddVerticalDivider(utility.Y, color);
+            }
+                
         }
 
         public PlotModel GetPlotModel()

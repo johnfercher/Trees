@@ -5,6 +5,7 @@ using Plot.MockData;
 using Plot.Services;
 using SimpleInjector;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Core.Plotter
@@ -29,15 +30,18 @@ namespace Core.Plotter
             plotModelService.AddTitle("Teste");
 
             var dots1 = mockData.GetDataPoints();
-            plotModelService.AddDots(dots1, OxyColors.Red);
-
             var dots2 = mockData.GetDataPoints();
-            plotModelService.AddDots(dots2, OxyColors.Blue);
 
             var divisions = classificationTree.DoClassification(dots1, dots2);
 
             plotModelService.AddSquare(classificationTree.initial, classificationTree.final, OxyColors.Black);
-            plotModelService.AddUtilityValues(divisions, OxyColors.Purple);
+            plotModelService.AddUtilityValues(divisions, OxyColors.Green);
+            
+            plotModelService.AddDots(classificationTree.classOne, OxyColors.Red);
+            plotModelService.AddDots(classificationTree.classTwo, OxyColors.Blue);
+
+            // plotModelService.AddDots(dots1, OxyColors.Red);
+            // plotModelService.AddDots(dots2, OxyColors.Blue);
 
             plotViewService.SetPlotModel(plotModelService.GetPlotModel());
 

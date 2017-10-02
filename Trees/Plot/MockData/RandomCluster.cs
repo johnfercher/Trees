@@ -2,6 +2,7 @@
 using Plot.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Plot.MockData
 {
@@ -9,6 +10,7 @@ namespace Plot.MockData
     {
         List<DataPoint> IMockData.GetDataPoints()
         {
+            Thread.Sleep(500);
             var dots = new List<DataPoint>();
             Random rnd = new Random();
 
