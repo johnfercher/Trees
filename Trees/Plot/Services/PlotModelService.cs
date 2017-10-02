@@ -69,7 +69,7 @@ namespace Plot.Services
             plotModel.Series.Add(lineSeries);
         }
 
-        void IPlotModelService.AddUtilityValues(List<UtilityValue> utilitys, OxyColor color)
+        public void AddUtilityValues(List<UtilityValue> utilitys, OxyColor color)
         {
             foreach (var utility in utilitys)
             {

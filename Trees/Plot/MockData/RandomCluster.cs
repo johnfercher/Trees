@@ -8,7 +8,7 @@ namespace Plot.MockData
 {
     class RandomCluster : IMockData
     {
-        List<DataPoint> IMockData.GetDataPoints()
+        public List<DataPoint> GetDataPoints()
         {
             Thread.Sleep(500);
             var dots = new List<DataPoint>();

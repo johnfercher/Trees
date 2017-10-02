@@ -13,11 +13,13 @@ namespace Plot.Services
         public List<DataPoint> classOne { get; private set; }
         public List<DataPoint> classTwo { get; private set; }
         public int initialAmountOfPoints { get; private set; }
+        public int loops { get; private set; }
 
         public ClassificationTree()
         {
             initial = new DataPoint();
             final = new DataPoint();
+            loops = 0;
         }
 
         private void Init(List<DataPoint> _classOne, List<DataPoint> _classTwo)
@@ -37,9 +39,9 @@ namespace Plot.Services
             var horizontalUtility = new UtilityValue();
             var verticalUtility = new UtilityValue();
 
-            int loops = 0;
+            
 
-            while ((classOne.Count + classTwo.Count) > 50 && loops < 20)
+            while ((classOne.Count + classTwo.Count) > 10 && loops < 20)
             {
                 horizontalUtility = findBetterHorizontalDivision();
                 verticalUtility = findBetterVerticalDivision();
@@ -341,7 +343,7 @@ namespace Plot.Services
 
             // Da preferência por mistura com poutos elementos
             if (amountOfClassOne > 0 && amountOfClassTwo > 0 && amountOfClassOne + amountOfClassTwo > 10)
-                miscGain = greaterAmount / (amountOfClassOne + amountOfClassTwo + 1.0) * 0.1;
+                miscGain = greaterAmount / (amountOfClassOne + amountOfClassTwo + 1.0) * 0.01;
 
             utility = greaterAmount * purityOfSplit * perfectSplitGain * miscGain;
 

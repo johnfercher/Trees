@@ -21,31 +21,7 @@ namespace Core.Plotter
             Application.SetCompatibleTextRenderingDefault(false);
             Bootstrap();
 
-            var plotViewService = container.GetInstance<IPlotViewService>();
-            var plotModelService = container.GetInstance<IPlotModelService>();
-            var mockData = container.GetInstance<IMockData>();
-            var regressionTree = container.GetInstance<IRegressionTree>();
-            var classificationTree = container.GetInstance<ClassificationTree>();
-
-            plotModelService.AddTitle("Teste");
-
-            var dots1 = mockData.GetDataPoints();
-            var dots2 = mockData.GetDataPoints();
-
-            var divisions = classificationTree.DoClassification(dots1, dots2);
-
-            plotModelService.AddSquare(classificationTree.initial, classificationTree.final, OxyColors.Black);
-            plotModelService.AddUtilityValues(divisions, OxyColors.Green);
-            
-            plotModelService.AddDots(classificationTree.classOne, OxyColors.Red);
-            plotModelService.AddDots(classificationTree.classTwo, OxyColors.Blue);
-
-            // plotModelService.AddDots(dots1, OxyColors.Red);
-            // plotModelService.AddDots(dots2, OxyColors.Blue);
-
-            plotViewService.SetPlotModel(plotModelService.GetPlotModel());
-
-            Application.Run(new Plotter(plotViewService.GetPlotView()));
+            Application.Run(new Plotter());
         }
 
         static void Bootstrap()
