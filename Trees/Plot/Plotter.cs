@@ -5,6 +5,7 @@ using Plot.MockData;
 using Plot.Services;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Core.Plotter
@@ -23,8 +24,7 @@ namespace Core.Plotter
             plotModelService = new PlotModelService();
             mockData = new RandomCluster();
             regressionTree = new RegressionTree();
-            classificationTree = new ClassificationTree() ;
-
+            classificationTree = new ClassificationTree();
 
             var dots1x = mockData.GetDataPoints();
             var dots2x = mockData.GetDataPoints();
